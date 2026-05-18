@@ -1,42 +1,92 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import './styles.css';
-import boxersImage from './assets/boxers.png';
 
 const links = [
   {
-    title: 'Безкоштовна пряма трансляція',
-    url: 'https://example.com/stream',
+    type: 'stream',
+    url: 'https://t.me/+8EZril-pgpQ4NTcy',
   },
   {
-    title: 'Поставити на Усика',
-    url: 'https://example.com/usyk',
+    title: 'Поставити\nНа Усика',
+    image: '/assets/usyk.png',
+    url: 'https://trackmyaff.com/?serial=61349478&creative_id=7365',
+    className: 'usyk-text',
   },
   {
-    title: 'Поставити на Верховіна',
-    url: 'https://example.com/verhovin',
+    title: 'Поставити\nНа Верховена',
+    image: '/assets/verhoeven.png',
+    url: 'https://trackmyaff.com/?serial=61349472&creative_id=6954',
   },
 ];
 
+function Flag({ country, small = false }) {
+  return (
+      <span
+          className={`flag-icon flag-${country} ${small ? 'flag-small' : ''}`}
+          aria-hidden="true"
+      />
+  );
+}
+
+function TextWithBreaks({ text }) {
+  return text.split('\n').map((line) => (
+      <React.Fragment key={line}>
+        {line}
+        <br />
+      </React.Fragment>
+  ));
+}
+
 function App() {
   return (
-    <main className="page">
-      <section className="phone-card">
-        <header className="hero-header">
-          <div className="badge">Бонус для тебе</div>
-        </header>
+      <main className="page">
+        <section className="landing">
+          <div className="background" aria-hidden="true" />
+          <div className="overlay" aria-hidden="true" />
 
-        <nav className="button-list" aria-label="Бонусні посилання">
-          {links.map((link) => (
-            <a className="neon-button" href={link.url} target="_blank" rel="noreferrer" key={link.title}>
-              {link.title}
-            </a>
-          ))}
-        </nav>
+          <header className="title">
+            <Flag country="ua" />
+            <span>Усик</span>
+            <span className="vs">vs</span>
+            <span>Верховен</span>
+            <Flag country="nl" />
+          </header>
 
-        <img className="boxers" src={boxersImage} alt="Боксери перед боєм" />
-      </section>
-    </main>
+          <nav className="actions" aria-label="Посилання">
+            {links.map((link, index) => (
+                <a
+                    className={`action action-${index + 1}`}
+                    href={link.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    key={index}
+                >
+                  {link.image && (
+                      <span className="fighter-avatar">
+                  <img src={link.image} alt="" />
+                </span>
+                  )}
+
+                  <span className={`action-text ${link.className || ''}`}>
+                {link.type === 'stream' ? (
+                    <>
+                    <span className="stream-line">
+                      <Flag country="ua" small /> Безкоштовна
+                    </span>
+                      <span className="stream-line">
+                      Пряма трансляція бою <Flag country="ua" small />
+                    </span>
+                    </>
+                ) : (
+                    <TextWithBreaks text={link.title} />
+                )}
+              </span>
+                </a>
+            ))}
+          </nav>
+        </section>
+      </main>
   );
 }
 
