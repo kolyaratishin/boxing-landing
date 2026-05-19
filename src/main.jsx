@@ -53,6 +53,10 @@ function App() {
             <Flag country="nl" />
           </header>
 
+          <div className="browser-tip">
+            Якщо не відкривається посилання — натисни три крапки зверху і відкрий у браузері
+          </div>
+
           <nav className="actions" aria-label="Посилання">
             {links.map((link, index) => (
                 <a
