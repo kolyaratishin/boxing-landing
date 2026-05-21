@@ -10,13 +10,13 @@ const links = [
   {
     title: 'Поставити\nНа Усика',
     image: '/assets/usyk.png',
-    url: 'https://trackmyaff.com/?serial=61349478&creative_id=7365',
+    url: 'https://cutt.ly/btB4nZNL5',
     className: 'usyk-text',
   },
   {
     title: 'Поставити\nНа Верховена',
     image: '/assets/verhoeven.png',
-    url: 'https://trackmyaff.com/?serial=61349472&creative_id=6954',
+    url: 'https://cutt.ly/KtB4mgnz',
   },
 ];
 
