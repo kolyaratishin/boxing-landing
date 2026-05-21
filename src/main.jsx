@@ -1,24 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
+import Admin from './Admin.jsx';
 import './styles.css';
 
-const links = [
-  {
-    type: 'stream',
-    url: 'https://t.me/+8EZril-pgpQ4NTcy',
-  },
-  {
-    title: 'Поставити\nНа Усика',
-    image: '/assets/usyk.png',
-    url: 'https://cutt.ly/btB4nZNL5',
-    className: 'usyk-text',
-  },
-  {
-    title: 'Поставити\nНа Верховена',
-    image: '/assets/verhoeven.png',
-    url: 'https://cutt.ly/KtB4mgnz',
-  },
-];
+const defaultLinks = {
+  stream: 'https://t.me/+8EZril-pgpQ4NTcy',
+  usyk: 'https://cutt.ly/btB4nZNL5',
+  verhoeven: 'https://cutt.ly/KtB4mgnz',
+};
 
 function Flag({ country, small = false }) {
   return (
@@ -39,6 +28,41 @@ function TextWithBreaks({ text }) {
 }
 
 function App() {
+  const [links, setLinks] = useState(defaultLinks);
+
+  useEffect(() => {
+    fetch('/api/links')
+        .then((res) => res.json())
+        .then((data) => {
+          setLinks({
+            stream: data.stream || defaultLinks.stream,
+            usyk: data.usyk || defaultLinks.usyk,
+            verhoeven: data.verhoeven || defaultLinks.verhoeven,
+          });
+        })
+        .catch(() => {
+          setLinks(defaultLinks);
+        });
+  }, []);
+
+  const buttonLinks = [
+    {
+      type: 'stream',
+      url: links.stream,
+    },
+    {
+      title: 'Поставити\nНа Усика',
+      image: '/assets/usyk.png',
+      url: links.usyk,
+      className: 'usyk-text',
+    },
+    {
+      title: 'Поставити\nНа Верховена',
+      image: '/assets/verhoeven.png',
+      url: links.verhoeven,
+    },
+  ];
+
   return (
       <main className="page">
         <section className="landing">
@@ -58,7 +82,7 @@ function App() {
           </div>
 
           <nav className="actions" aria-label="Посилання">
-            {links.map((link, index) => (
+            {buttonLinks.map((link, index) => (
                 <a
                     className={`action action-${index + 1}`}
                     href={link.url}
@@ -78,6 +102,7 @@ function App() {
                     <span className="stream-line">
                       <Flag country="ua" small /> Безкоштовна
                     </span>
+
                       <span className="stream-line">
                       Пряма трансляція бою <Flag country="ua" small />
                     </span>
@@ -93,5 +118,7 @@ function App() {
       </main>
   );
 }
-
-createRoot(document.getElementById('root')).render(<App />);
+const isAdminPage = window.location.pathname === '/admin';
+createRoot(document.getElementById('root')).render(
+    isAdminPage ? <Admin /> : <App />
+);

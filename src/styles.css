@@ -293,3 +293,58 @@ body {
     font-size: 22px;
   }
 }
+
+.admin-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  background: #080808;
+  font-family: Arial, sans-serif;
+}
+
+.admin-card {
+  width: 100%;
+  max-width: 480px;
+  padding: 24px;
+  border-radius: 18px;
+  background: #ffffff;
+  display: grid;
+  gap: 16px;
+}
+
+.admin-card h1 {
+  margin: 0 0 8px;
+  font-size: 24px;
+}
+
+.admin-card label {
+  display: grid;
+  gap: 6px;
+  font-weight: 700;
+}
+
+.admin-card input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #bbb;
+  border-radius: 10px;
+  font-size: 15px;
+}
+
+.admin-card button {
+  padding: 14px;
+  border: 0;
+  border-radius: 12px;
+  background: #111;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.admin-status {
+  margin: 0;
+  font-weight: 700;
+}
